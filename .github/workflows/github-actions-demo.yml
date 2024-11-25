@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:  
-      FULL_NAME: "Lukashenko Kirill Denisovich"
+      FULL_NAME: "Londar Ivan Romanovich"
       GROUP_NUMBER: "M3117"
       GITHUB_USERNAME: ${{ github.actor }}
       
