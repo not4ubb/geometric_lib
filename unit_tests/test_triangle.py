@@ -1,34 +1,43 @@
 import unittest
+import sys
 from triangle import area, perimeter
 
-class TestTriangle(unittest.TestCase):
-    def test_area_valid_triangle(self):
-        a, b, c = 3, 4, 5
-        expected_area = 6.0
-        result = area(a, b, c)
-        self.assertAlmostEqual(result, expected_area, places=2)
+sys.path.append("..")
 
-    def test_perimeter_valid_triangle(self):
+
+class TriangleTestCase(unittest.TestCase):
+    def test_zero_sides(self):
+        a, b, c = 0, 0, 0
+        with self.assertRaises(ValueError):
+            area(a, b, c)
+
+        with self.assertRaises(ValueError):
+            perimeter(a, b, c)
+
+    def test_positive_sides(self):
         a, b, c = 3, 4, 5
+        expected_area = 6
         expected_perimeter = 12
-        result = perimeter(a, b, c)
-        self.assertEqual(result, expected_perimeter)
 
-    def test_area_invalid_triangle(self):
-        with self.assertRaises(ValueError):
-            area(1, 2, 10)
+        self.assertAlmostEqual(area(a, b, c), expected_area)
+        self.assertEqual(perimeter(a, b, c), expected_perimeter)
 
-    def test_perimeter_invalid_triangle(self):
+    def test_invalid_triangle_inequality(self):
+        a, b, c = 1, 2, 10
         with self.assertRaises(ValueError):
-            perimeter(1, 2, 10)
+            area(a, b, c)
 
-    def test_area_negative_sides(self):
         with self.assertRaises(ValueError):
-            area(-3, 4, 5)
+            perimeter(a, b, c)
 
-    def test_perimeter_negative_sides(self):
+    def test_negative_sides(self):
+        a, b, c = -3, 4, 5
         with self.assertRaises(ValueError):
-            perimeter(-3, 4, 5)
+            area(a, b, c)
+
+        with self.assertRaises(ValueError):
+            perimeter(a, b, c)
+
 
 if __name__ == "__main__":
     unittest.main()
